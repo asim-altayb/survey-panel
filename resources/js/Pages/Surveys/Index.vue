@@ -16,8 +16,9 @@
         <thead>
           <tr class="text-left font-bold">
             <th class="pb-4 pt-6 px-6">Name</th>
-            <th class="pb-4 pt-6 px-6">Issued By</th>
-            <th class="pb-4 pt-6 px-6" colspan="2">Enteries times</th>
+            <th class="pb-4 pt-6 px-6">Questions</th>
+            <th class="pb-4 pt-6 px-6" >Enteries times</th>
+            <th class="pb-4 pt-6 px-6" colspan="2">Isuued By</th>
           </tr>
         </thead>
         <tbody>
@@ -30,17 +31,17 @@
             </td>
             <td class="border-t">
               <Link class="flex items-center px-6 py-4" :href="`/surveys/${surv.id}/edit`" tabindex="-1">
-                {{ surv.city }}
+                {{ surv.questions_count }}
+              </Link>
+            </td>
+            <td class="border-t">
+              <Link class="flex items-center px-6 py-4" :href="`/surveys/${surv.id}/edit`" tabindex="-1">
+                {{ surv.entries_count }}
               </Link>
             </td>
             <td class="border-t">
               <Link class="flex items-center px-6 py-4" :href="`/surveys/${surv.id}/edit`" tabindex="-1">
                 Admin
-              </Link>
-            </td>
-            <td class="border-t">
-              <Link class="flex items-center px-6 py-4" :href="`/surveys/${surv.id}/edit`" tabindex="-1">
-                {{ surv.enteries_count }}
               </Link>
             </td>
             <td class="w-px border-t">

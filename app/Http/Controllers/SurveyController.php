@@ -20,6 +20,8 @@ class SurveyController extends Controller
                 ->through(fn ($survey) => [
                     'id' => $survey->id,
                     'name' => $survey->name,
+                    'questions_count'=>$survey->questions->count(),
+                    'entries_count'=>$survey->entries->count(),
                     'deleted_at' => null,
                 ]),
         ]);
@@ -32,39 +34,23 @@ class SurveyController extends Controller
 
     public function store()
     {
-        Auth::user()->account->surveys()->create(
-            Request::validate([
-                'name' => ['required', 'max:100'],
-                'email' => ['nullable', 'max:50', 'email'],
-                'phone' => ['nullable', 'max:50'],
-                'address' => ['nullable', 'max:150'],
-                'city' => ['nullable', 'max:50'],
-                'region' => ['nullable', 'max:50'],
-                'country' => ['nullable', 'max:2'],
-                'postal_code' => ['nullable', 'max:25'],
-            ])
-        );
+        Request::validate([
+            'name'=>'required'
+        ]);
+        $data = Request::all();
+        $survey = Survey::create(['name' =>$data['name'],'settings' => ['accept-guest-entries' => true]]);
+
+        foreach ($data['questions'] as  $question) {
+            if($question['content'])
+                $survey->questions()->create($question);
+        }
 
         return Redirect::route('surveys')->with('success', 'Survey created.');
     }
 
     public function edit(Survey $survey)
     {
-        return Inertia::render('Surveys/Edit', [
-            'survey' => [
-                'id' => $survey->id,
-                'name' => $survey->name,
-                'email' => $survey->email,
-                'phone' => $survey->phone,
-                'address' => $survey->address,
-                'city' => $survey->city,
-                'region' => $survey->region,
-                'country' => $survey->country,
-                'postal_code' => $survey->postal_code,
-                'deleted_at' => $survey->deleted_at,
-                'contacts' => $survey->contacts()->orderByName()->get()->map->only('id', 'name', 'city', 'phone'),
-            ],
-        ]);
+        return Inertia::render('Surveys/Create');
     }
 
     public function update(Survey $survey)
