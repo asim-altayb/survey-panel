@@ -1,11 +1,10 @@
 <?php
 
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
-use App\Http\Controllers\ContactsController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ImagesController;
-use App\Http\Controllers\OrganizationsController;
 use App\Http\Controllers\ReportsController;
+use App\Http\Controllers\SurveyController;
 use App\Http\Controllers\UsersController;
 use Illuminate\Support\Facades\Route;
 
@@ -71,62 +70,32 @@ Route::put('users/{user}/restore', [UsersController::class, 'restore'])
 
 // Organizations
 
-Route::get('organizations', [OrganizationsController::class, 'index'])
-    ->name('organizations')
+Route::get('surveys', [SurveyController::class, 'index'])
+    ->name('surveys')
     ->middleware('auth');
 
-Route::get('organizations/create', [OrganizationsController::class, 'create'])
-    ->name('organizations.create')
+Route::get('surveys/create', [SurveyController::class, 'create'])
+    ->name('surveys.create')
     ->middleware('auth');
 
-Route::post('organizations', [OrganizationsController::class, 'store'])
-    ->name('organizations.store')
+Route::post('surveys', [SurveyController::class, 'store'])
+    ->name('surveys.store')
     ->middleware('auth');
 
-Route::get('organizations/{organization}/edit', [OrganizationsController::class, 'edit'])
-    ->name('organizations.edit')
+Route::get('surveys/{survey}/edit', [SurveyController::class, 'edit'])
+    ->name('surveys.edit')
     ->middleware('auth');
 
-Route::put('organizations/{organization}', [OrganizationsController::class, 'update'])
-    ->name('organizations.update')
+Route::put('surveys/{survey}', [SurveyController::class, 'update'])
+    ->name('surveys.update')
     ->middleware('auth');
 
-Route::delete('organizations/{organization}', [OrganizationsController::class, 'destroy'])
-    ->name('organizations.destroy')
+Route::delete('surveys/{survey}', [SurveyController::class, 'destroy'])
+    ->name('surveys.destroy')
     ->middleware('auth');
 
-Route::put('organizations/{organization}/restore', [OrganizationsController::class, 'restore'])
-    ->name('organizations.restore')
-    ->middleware('auth');
-
-// Contacts
-
-Route::get('contacts', [ContactsController::class, 'index'])
-    ->name('contacts')
-    ->middleware('auth');
-
-Route::get('contacts/create', [ContactsController::class, 'create'])
-    ->name('contacts.create')
-    ->middleware('auth');
-
-Route::post('contacts', [ContactsController::class, 'store'])
-    ->name('contacts.store')
-    ->middleware('auth');
-
-Route::get('contacts/{contact}/edit', [ContactsController::class, 'edit'])
-    ->name('contacts.edit')
-    ->middleware('auth');
-
-Route::put('contacts/{contact}', [ContactsController::class, 'update'])
-    ->name('contacts.update')
-    ->middleware('auth');
-
-Route::delete('contacts/{contact}', [ContactsController::class, 'destroy'])
-    ->name('contacts.destroy')
-    ->middleware('auth');
-
-Route::put('contacts/{contact}/restore', [ContactsController::class, 'restore'])
-    ->name('contacts.restore')
+Route::put('surveys/{survey}/restore', [SurveyController::class, 'restore'])
+    ->name('surveys.restore')
     ->middleware('auth');
 
 // Reports
