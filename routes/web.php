@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AnswersController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ImagesController;
@@ -68,7 +69,7 @@ Route::put('users/{user}/restore', [UsersController::class, 'restore'])
     ->name('users.restore')
     ->middleware('auth');
 
-// Organizations
+// Surveys
 
 Route::get('surveys', [SurveyController::class, 'index'])
     ->name('surveys')
@@ -109,3 +110,7 @@ Route::get('reports', [ReportsController::class, 'index'])
 Route::get('/img/{path}', [ImagesController::class, 'show'])
     ->where('path', '.*')
     ->name('image');
+
+
+Route::get('/survey/{survey}',[AnswersController::class,'index']);
+Route::post('/survey/store/{survey}',[AnswersController::class,'store'])->name('entries.store');

@@ -25,10 +25,12 @@
               <option value="radio">Radio</option>
             </select-input>
             <label for="" class="pb-8 pr-6 w-full lg:w-3/4">Options:</label>
-            <div class="flex flex-wrap -mb-8 -mr-6 p-8">
-              <text-input v-model="form.questions[index-1][1]" class="pb-8 pr-6 w-full lg:w-2/4" label="Option" />
-              <text-input v-model="form.questions[index-1][2]" class="pb-8 pr-6 w-full lg:w-2/4" label="Option" />
-              <text-input v-model="form.questions[index-1][3]" class="pb-8 pr-6 w-full lg:w-2/4" label="Option" />
+              <label for="" class="pb-8 pr-6 w-full lg:w-2/4" v-for="(index,option) in form.questions[index-1].options" :key="index">{{form.questions[index-1].options[option] ?? ''}}</label>
+            <div class="flex items-center justify-between mb-6">
+              <text-input v-model="option" class="pb-8 pr-6 w-full lg:w-3/4" label="Option" />
+              <a class="btn-indigo" href="#" @click.prevent="AddOption(form.questions[index-1])">
+                <span>+ Add </span>
+              </a>
             </div>
           </div>
       </div>
@@ -69,12 +71,9 @@ export default {
       question:{
         content:'',
         type:'mutliselect',
-        options:{
-          1:'',
-          2:'',
-          3:'',
-        }
-      }
+        options:[]
+      },
+      option:''
     }
   },
   methods: {
@@ -84,6 +83,10 @@ export default {
     addQuestion() {
       this.questions_count++
       this.form.questions.push(this.question)
+    },
+    AddOption(question) {
+      question.options.push(this.option)
+      this.option = ''
     }
   },
   created(){
